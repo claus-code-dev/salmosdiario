@@ -1,164 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Salmo do Dia | Oração Celestial</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Oração Celestial</title>
 
-<style>
+<script src="https://cdn.tailwindcss.com"></script>
 
-body{
-background:#f4f7f2;
-font-family:Arial,Helvetica,sans-serif;
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: "#2E7D32",
+secondary: "#4CAF50",
+darkgreen: "#1B5E20"
+},
+fontFamily: {
+poppins: ["Poppins","sans-serif"]
 }
-
-.hero{
-background:linear-gradient(135deg,#2e7d32,#66bb6a);
-color:white;
-padding:70px 20px;
-text-align:center;
 }
-
-.card-salmo{
-
-max-width:900px;
-margin:auto;
-margin-top:-40px;
-
-border:none;
-border-radius:20px;
-
-box-shadow:0 10px 35px rgba(0,0,0,.15);
-
 }
-
-.salmo{
-
-font-size:1.3rem;
-
-line-height:2;
-
-margin-top:25px;
-
 }
+</script>
 
-footer{
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-margin-top:80px;
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-padding:30px;
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-text-align:center;
-
-color:#777;
-
-}
-
-.botao{
-
-margin-top:25px;
-
-}
-
-</style>
+<link rel="stylesheet" href="css/style.css">
 
 </head>
 
-<body>
+<body class="font-poppins">
 
-<header class="hero">
+<div id="app"></div>
 
-<h1>🙏 Oração Celestial</h1>
-
-<p>Todos os dias um novo Salmo para fortalecer sua fé.</p>
-
-</header>
-
-<div class="container">
-
-<div class="card card-salmo">
-
-<div class="card-body p-5">
-
-<h2 id="titulo" class="text-success text-center">
-
-Carregando...
-
-</h2>
-
-<p id="texto" class="salmo">
-
-Aguarde...
-
-</p>
-
-<div class="text-center botao">
-
-<button class="btn btn-success">
-
-Compartilhar
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<footer>
-
-© 2026 Oração Celestial
-
-</footer>
-
-<script>
-
-const salmos=[
-
-{
-
-titulo:"Salmo 23",
-
-texto:"O Senhor é o meu pastor; nada me faltará."
-
-},
-
-{
-
-titulo:"Salmo 91",
-
-texto:"Aquele que habita no esconderijo do Altíssimo..."
-
-},
-
-{
-
-titulo:"Salmo 121",
-
-texto:"Elevo os meus olhos para os montes; de onde me virá o socorro?"
-
-}
-
-];
-
-const hoje=new Date();
-
-const inicio=new Date(hoje.getFullYear(),0,0);
-
-const dia=Math.floor((hoje-inicio)/86400000);
-
-const indice=dia % salmos.length;
-
-document.getElementById("titulo").innerHTML=salmos[indice].titulo;
-
-document.getElementById("texto").innerHTML=salmos[indice].texto;
-
-</script>
+<script src="js/app.js"></script>
 
 </body>
+
 </html>
