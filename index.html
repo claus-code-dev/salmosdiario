@@ -3,16 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Salmo do Dia - Oração Celestial</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Oração Celestial - Salmo do Dia</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <main class="container">
-    <h1 id="titulo">Carregando...</h1>
-    <div id="texto" class="conteudo-salmo"></div>
-  </main>
+  <div class="app-container">
+    <header class="header">
+      <h1>🙏 Oração Celestial</h1>
+      <p>Sua inspiração diária na Palavra de Deus</p>
+    </header>
 
-  <script type="module" src="js/app.js"></script>
+    <main class="card-salmo">
+      <div class="card-subtitulo">📖 Salmo do Dia</div>
+      <h2 id="titulo">Carregando...</h2>
+
+      <div id="texto" class="conteudo-texto">
+        <!-- Versículos são inseridos aqui pelo app.js -->
+      </div>
+
+      <button class="btn-compartilhar">
+        🙏 Compartilhar
+      </button>
+    </main>
+  </div>
+
+  <script type="module" src="app.js"></script>
 </body>
 </html>
