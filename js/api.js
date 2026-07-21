@@ -1,14 +1,17 @@
-const BASE_URL = "https://claus-code-dev.github.io/salmos";
-
 export async function buscarSalmos() {
   try {
-    const resposta = await fetch(`${BASE_URL}/salmos.json`);
+    // Busca o salmos.json na pasta data (voltando um nível /..)
+    const resposta = await fetch('../data/salmos.json'); 
+    
+    // Se não achar local, tenta a URL pública como fallback
     if (!resposta.ok) {
-      throw new Error(`Erro na rede: status ${resposta.status}`);
+      const respostaBackup = await fetch('https://claus-code-dev.github.io/salmos/salmos.json');
+      return await respostaBackup.json();
     }
+
     return await resposta.json();
   } catch (erro) {
-    console.error("Falha ao buscar o arquivo JSON:", erro);
+    console.error("Falha ao buscar os salmos:", erro);
     return null;
   }
 }
