@@ -1,11 +1,144 @@
-body{
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-margin:0;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-padding:0;
+body {
+  background-color: #0d6332; /* Verde principal de fundo */
+  font-family: 'Poppins', sans-serif;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
 
-background:#edf3ec;
+/* Container do App */
+.app-container {
+  width: 100%;
+  max-width: 650px;
+  text-align: center;
+}
 
-font-family:Poppins,sans-serif;
+/* Cabeçalho */
+.header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
 
+.header p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin-bottom: 24px;
+}
+
+/* Card Principal do Salmo */
+.card-salmo {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Subtítulo do Card (📖 Salmo do Dia) */
+.card-subtitulo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+/* Título do Salmo (Ex: Salmo 91) */
+#titulo {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fbc02d; /* Amarelo de destaque */
+  margin-bottom: 20px;
+}
+
+/* Container com Rolagem dos Versículos */
+.conteudo-texto {
+  max-height: 320px; /* Limita a altura para salmos longos e gera scroll */
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 24px;
+  text-align: justify;
+  width: 100%;
+}
+
+/* Estilo de cada versículo */
+.versiculo {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 12px;
+  color: #f0f4f1;
+}
+
+/* Número do Versículo em Sobrescrito */
+.num-versiculo {
+  font-weight: 700;
+  color: #fbc02d;
+  margin-right: 6px;
+  font-size: 0.8rem;
+}
+
+/* Personalização da Barra de Rolagem */
+.conteudo-texto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.conteudo-texto::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.conteudo-texto::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+}
+
+.conteudo-texto::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Botão Compartilhar */
+.btn-compartilhar {
+  background-color: #fbc02d;
+  color: #1b432a;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.btn-compartilhar:hover {
+  background-color: #ffcd38;
+  transform: translateY(-2px);
+}
+
+.btn-compartilhar:active {
+  transform: translateY(0);
 }
