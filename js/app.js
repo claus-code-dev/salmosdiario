@@ -1,103 +1,48 @@
-document.getElementById("app").innerHTML=`
+import { buscarSalmos } from './api.js';
 
-<div class="min-h-screen bg-gradient-to-b from-green-800 via-green-700 to-green-600">
+async function carregarSalmoDoDia() {
+  const listaSalmos = await buscarSalmos();
 
-<div class="max-w-5xl mx-auto p-6">
+  if (!listaSalmos || listaSalmos.length === 0) {
+    document.getElementById("titulo").textContent = "Erro ao carregar";
+    document.getElementById("texto").textContent = "Não foi possível carregar os salmos.";
+    return;
+  }
 
-<div class="text-center text-white pt-10">
+  // Lógica para selecionar o salmo rotativo com base no dia do ano
+  const hoje = new Date();
+  const inicioDoAno = new Date(hoje.getFullYear(), 0, 0);
+  const diffTempo = hoje - inicioDoAno;
+  const diaDoAno = Math.floor(diffTempo / (1000 * 60 * 60 * 24));
 
-<h1 class="text-5xl font-bold">
+  const indice = diaDoAno % listaSalmos.length;
+  const salmoObjeto = listaSalmos[indice].chapter;
 
-🙏 Oração Celestial
+  // Extrai o número do Salmo do @osisID (Ex: "Ps.23" -> "23")
+  const numeroSalmo = salmoObjeto["@osisID"].replace("Ps.", "");
+  const tituloFormatado = `Salmo ${numeroSalmo}`;
 
-</h1>
+  // Processa os versículos para criar o texto completo
+  let versiculos = salmoObjeto.verse;
+  
+  // Se for um salmo de versículo único, garante que trate como array
+  if (!Array.isArray(versiculos)) {
+    versiculos = [versiculos];
+  }
 
-<p class="mt-3 text-green-100">
+  // Junta o texto de todos os versículos separados por quebras de linha
+  const textoCompleto = versiculos
+    .map(v => v["#text"].replace("¶ ", "")) // Remove o símbolo ¶ se preferir
+    .join("\n\n");
 
-Sua inspiração diária na Palavra de Deus
-
-</p>
-
-</div>
-
-<div class="mt-10 bg-white/20 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/30">
-
-<h2 class="text-3xl font-bold text-white text-center">
-
-📖 Salmo do Dia
-
-</h2>
-
-<h3 id="titulo"
-
-class="text-2xl mt-8 text-center text-yellow-300">
-
-Carregando...
-
-</h3>
-
-<p id="texto"
-
-class="text-white text-xl leading-10 mt-8 text-center">
-
-Carregando...
-
-</p>
-
-<div class="text-center mt-10">
-
-<button class="bg-yellow-400 hover:bg-yellow-500 transition rounded-full px-8 py-3 text-lg font-bold">
-
-🙏 Compartilhar
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-const salmos=[
-
-{
-
-titulo:"Salmo 23",
-
-texto:"O Senhor é o meu pastor; nada me faltará."
-
-},
-
-{
-
-titulo:"Salmo 91",
-
-texto:"Aquele que habita no esconderijo do Altíssimo, à sombra do Onipotente descansará."
-
-},
-
-{
-
-titulo:"Salmo 121",
-
-texto:"Elevo os meus olhos para os montes; de onde me virá o socorro?"
-
+  // Atualiza os elementos no HTML
+  document.getElementById("titulo").textContent = tituloFormatado;
+  
+  // Usamos innerHTML com <p> para formatar os parágrafos bonitinhos
+  const containerTexto = document.getElementById("texto");
+  containerTexto.innerHTML = versiculos
+    .map(v => `<p><sup>${v["@osisID"].split(".")[2]}</sup> ${v["#text"].replace("¶ ", "")}</p>`)
+    .join("");
 }
 
-];
-
-const hoje=new Date();
-
-const inicio=new Date(hoje.getFullYear(),0,0);
-
-const dia=Math.floor((hoje-inicio)/86400000);
-
-const indice=dia % salmos.length;
-
-document.getElementById("titulo").innerHTML=salmos[indice].titulo;
-
-document.getElementById("texto").innerHTML=salmos[indice].texto;
+document.addEventListener("DOMContentLoaded", carregarSalmoDoDia);
