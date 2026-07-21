@@ -4,8 +4,10 @@ async function carregarSalmoDoDia() {
   const listaSalmos = await buscarSalmos();
 
   if (!listaSalmos || listaSalmos.length === 0) {
-    document.getElementById("titulo").textContent = "Erro ao carregar";
-    document.getElementById("texto").textContent = "Não foi possível carregar os salmos.";
+    const elTitulo = document.getElementById("titulo");
+    const elTexto = document.getElementById("texto");
+    if (elTitulo) elTitulo.textContent = "Erro ao carregar";
+    if (elTexto) elTexto.textContent = "Não foi possível carregar os salmos no momento.";
     return;
   }
 
@@ -18,31 +20,62 @@ async function carregarSalmoDoDia() {
   const indice = diaDoAno % listaSalmos.length;
   const salmoObjeto = listaSalmos[indice].chapter;
 
-  // Extrai o número do Salmo do @osisID (Ex: "Ps.23" -> "23")
+  // Extrai o número do Salmo (Ex: "Ps.91" -> "91")
   const numeroSalmo = salmoObjeto["@osisID"].replace("Ps.", "");
   const tituloFormatado = `Salmo ${numeroSalmo}`;
 
-  // Processa os versículos para criar o texto completo
+  // Processa os versículos
   let versiculos = salmoObjeto.verse;
-  
-  // Se for um salmo de versículo único, garante que trate como array
   if (!Array.isArray(versiculos)) {
     versiculos = [versiculos];
   }
 
-  // Junta o texto de todos os versículos separados por quebras de linha
-  const textoCompleto = versiculos
-    .map(v => v["#text"].replace("¶ ", "")) // Remove o símbolo ¶ se preferir
-    .join("\n\n");
+  // Atualiza o título
+  const elementoTitulo = document.getElementById("titulo");
+  if (elementoTitulo) {
+    elementoTitulo.textContent = tituloFormatado;
+  }
 
-  // Atualiza os elementos no HTML
-  document.getElementById("titulo").textContent = tituloFormatado;
-  
-  // Usamos innerHTML com <p> para formatar os parágrafos bonitinhos
+  // Monta o HTML com todos os versículos numerados
   const containerTexto = document.getElementById("texto");
-  containerTexto.innerHTML = versiculos
-    .map(v => `<p><sup>${v["@osisID"].split(".")[2]}</sup> ${v["#text"].replace("¶ ", "")}</p>`)
-    .join("");
+  if (containerTexto) {
+    containerTexto.innerHTML = versiculos
+      .map(v => {
+        const numVersiculo = v["@osisID"].split(".")[2];
+        const textoLimpo = v["#text"].replace(/^¶\s*/, ""); // Limpa o símbolo ¶ no início
+        return `<p class="versiculo"><sup class="num-versiculo">${numVersiculo}</sup>${textoLimpo}</p>`;
+      })
+      .join("");
+  }
+
+  // Lógica do botão Compartilhar
+  configurarBotaoCompartilhar(tituloFormatado, versiculos);
+}
+
+function configurarBotaoCompartilhar(titulo, versiculos) {
+  const btnCompartilhar = document.querySelector(".btn-compartilhar, button");
+  if (!btnCompartilhar) return;
+
+  btnCompartilhar.addEventListener("click", async () => {
+    const textoParaCompartilhar = `${titulo}\n\n` + 
+      versiculos.map(v => `${v["@osisID"].split(".")[2]}. ${v["#text"].replace(/^¶\s*/, "")}`).join("\n");
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: titulo,
+          text: textoParaCompartilhar,
+          url: window.location.href,
+        });
+      } catch (err) {
+        console.log("Compartilhamento cancelado ou não suportado.");
+      }
+    } else {
+      // Fallback: Copia para a área de transferência
+      navigator.clipboard.writeText(textoParaCompartilhar);
+      alert("Salmo copiado para a área de transferência!");
+    }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", carregarSalmoDoDia);
