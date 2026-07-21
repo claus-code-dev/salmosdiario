@@ -7,79 +7,71 @@
 }
 
 body {
-  background-color: #0d6332;
+  background: transparent;
   font-family: 'Poppins', sans-serif;
-  color: #ffffff;
-  padding: 12px;
-  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
 }
 
-/* Container que se adapta a qualquer largura de barra lateral */
+/* Container Principal */
 .app-container {
   width: 100%;
-  max-width: 100%;
+  max-width: 320px; /* Largura ideal de sidebar */
   text-align: center;
-  margin: 0 auto;
 }
 
-/* Cabeçalho mais compacto */
-.header h1 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  margin-bottom: 2px;
-}
-
-.header p {
+/* Data dinâmica no topo */
+.data-topo {
   font-size: 0.8rem;
-  opacity: 0.9;
-  margin-bottom: 14px;
+  color: #555555;
+  margin-bottom: 8px;
+  font-weight: 500;
 }
 
-/* Card Principal */
+/* Card Estilo Bibliatodo com Fundo Místico/Religioso */
 .card-salmo {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 16px;
-  padding: 16px 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.75)), 
+              url('https://images.unsplash.com/photo-1509021436468-d510077422f2?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
+  border-radius: 14px;
+  padding: 24px 18px;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 320px;
+  justify-content: space-between;
 }
 
-.card-subtitulo {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
+/* Título em Destaque */
 #titulo {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #fbc02d;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   margin-bottom: 12px;
 }
 
-/* Área de Texto do Salmo */
+/* Área de Texto dos Versículos */
 .conteudo-texto {
-  max-height: 280px;
+  max-height: 200px;
   overflow-y: auto;
-  padding-right: 6px;
-  margin-bottom: 16px;
-  text-align: left; /* Alinhado à esquerda fica muito melhor na sidebar */
+  padding: 0 4px;
+  margin-bottom: 12px;
+  text-align: center;
   width: 100%;
 }
 
 .versiculo {
-  font-size: 0.85rem; /* Tamanho ajustado para caber perfeitamente na sidebar */
+  font-size: 0.85rem;
   line-height: 1.5;
   margin-bottom: 8px;
-  color: #f0f4f1;
+  color: #f1f1f1;
+  font-weight: 500;
+  text-transform: uppercase; /* Caixa alta igual à imagem */
 }
 
 .num-versiculo {
@@ -89,32 +81,34 @@ body {
   font-size: 0.75rem;
 }
 
-/* Barra de rolagem discreta */
+/* Barra de Rolagem Discreta */
 .conteudo-texto::-webkit-scrollbar {
-  width: 4px;
+  width: 3px;
 }
-
 .conteudo-texto::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.4);
   border-radius: 10px;
 }
 
-/* Botão Compacto */
-.btn-compartilhar {
-  background-color: #fbc02d;
-  color: #1b432a;
-  border: none;
-  padding: 8px 20px;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: inline-flex;
+/* Rodapé Interno do Card */
+.card-footer {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fbc02d;
+  display: flex;
   align-items: center;
-  gap: 6px;
-  transition: transform 0.2s ease;
+  gap: 4px;
 }
 
-.btn-compartilhar:hover {
-  transform: scale(1.03);
+/* Link Inferior de Inserção */
+.link-agregador {
+  margin-top: 10px;
+  font-size: 0.75rem;
+  color: #888888;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.link-agregador:hover {
+  text-decoration: underline;
 }
